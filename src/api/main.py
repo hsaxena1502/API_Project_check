@@ -4,8 +4,8 @@ Main FastAPI application module.
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .core import router as api_router
-from ..utils.config import Config
+from src.api.core import router as api_router
+from src.utils.config import Config
 
 def create_app() -> FastAPI:
     """Create and configure the FastAPI application."""

@@ -12,7 +12,12 @@ load_dotenv()
 BASE_DIR = Path(__file__).parent.parent.parent
 
 class Config:
-    """Configuration class for API tests."""
+    """Configuration class for API tests and application settings."""
+    
+    # Application metadata
+    APP_NAME = os.getenv("APP_NAME", "My FastAPI Application")
+    APP_DESCRIPTION = os.getenv("APP_DESCRIPTION", "A FastAPI-based application")
+    APP_VERSION = os.getenv("APP_VERSION", "0.1.0")
     
     # API settings
     BASE_URL = os.getenv("API_BASE_URL", "https://api.example.com/v1")
@@ -28,6 +33,9 @@ class Config:
     
     # Auth settings
     API_KEY = os.getenv("API_KEY", "")
+    
+    # CORS settings
+    CORS_ORIGINS = os.getenv("CORS_ORIGINS", "*").split(",")
     
     # Test settings
     TEST_DATA_DIR = BASE_DIR / "tests" / "test_data"
