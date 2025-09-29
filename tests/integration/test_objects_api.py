@@ -2,14 +2,13 @@
 Integration tests for the Objects API using Page Object Model.
 """
 import pytest
-from restapi_automation.models.object_model import ObjectModel
-from restapi_automation.core.base_client import BaseAPIClient
-from restapi_automation.pages.objects_page import ObjectsPage
+from src.api.client import APIClient
+from src.api.objects_api import ObjectsPage, ObjectModel
 
 @pytest.fixture
 def api_client():
     """Create an API client for testing."""
-    return BaseAPIClient(
+    return APIClient(
         base_url="https://api.example.com/v1",
         headers={"Content-Type": "application/json"}
     )

@@ -6,8 +6,8 @@ from typing import Any, Dict
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
-from src.pycharm_api.models.user import User
-from src.pycharm_api.core.security import get_password_hash
+from src.models.user import User
+from src.api.core.security import get_password_hash
 
 
 def random_lower_string(length: int = 32) -> str:
