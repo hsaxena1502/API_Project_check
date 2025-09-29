@@ -3,7 +3,7 @@ import json
 from typing import Any, Dict, Optional, Union
 import requests
 from requests import Response
-from ..utils.config import Config
+from src.utils.config import Config
 
 class APIClient:
     """Base API client with common HTTP methods."""
