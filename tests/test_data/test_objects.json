@@ -1,0 +1,19 @@
+{
+  "valid_object": {
+    "name": "Test Object",
+    "data": {
+      "color": "blue",
+      "capacity": 10
+    }
+  },
+  "update_data": {
+    "name": "Updated Test Object",
+    "data": {
+      "color": "red",
+      "capacity": 20
+    }
+  },
+  "partial_update": {
+    "name": "Partially Updated"
+  }
+}

@@ -1,88 +1,103 @@
-# Go REST API with Python Tests
+# REST API Test Automation Framework
 
-This is a simple RESTful API built with Go and tested with Python's pytest framework.
+A robust and maintainable API testing framework built with Python and pytest. This framework is designed for testing RESTful APIs with a clean, scalable architecture.
 
 ## Features
 
-- CRUD operations for items
-- CORS support
-- Comprehensive test coverage
-- Clean code structure
+- **Modular Design**: Separated API clients, models, and utilities
+- **Configuration Management**: Environment-based configuration
+- **Test Data Management**: JSON-based test data management
+- **Comprehensive Testing**: Built-in support for various test scenarios
+- **Type Hints**: Better code completion and type checking
 
 ## Prerequisites
 
-- Go 1.21 or higher
 - Python 3.7 or higher
 - pip (Python package installer)
-
-## Setup
-
-### 1. Install Go Dependencies
-
-```bash
-cd go-rest-api
-go mod download
-```
-
-### 2. Install Python Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-## Running the API
-
-Start the Go API server:
-
-```bash
-cd go-rest-api
-go run main.go
-```
-
-The server will start on `http://localhost:8000`
-
-## API Endpoints
-
-- `GET /api/items` - Get all items
-- `GET /api/items/{id}` - Get a specific item
-- `POST /api/items` - Create a new item
-- `PUT /api/items/{id}` - Update an existing item
-- `DELETE /api/items/{id}` - Delete an item
-- `OPTIONS /api/items` - CORS preflight request
-
-## Running Tests
-
-Make sure the API server is running, then run the tests:
-
-```bash
-pytest tests/ -v --html=test_report.html
-```
-
-This will run all tests and generate an HTML test report.
-
-## Test Coverage
-
-The test suite covers:
-- Getting all items
-- Getting a single item
-- Creating a new item
-- Updating an existing item
-- Deleting an item
-- CORS support
-- Error handling for non-existent items
 
 ## Project Structure
 
 ```
 .
-├── go-rest-api/
-│   ├── handlers/      # Request handlers
-│   ├── models/        # Data models
-│   ├── utils/         # Utility functions
-│   ├── go.mod        # Go module file
-│   └── main.go       # Main application file
-├── tests/
-│   └── test_api.py   # Test cases
-├── requirements.txt  # Python dependencies
-└── README.md        # This file
+├── src/                    # Source code
+│   ├── api/               # API clients
+│   ├── models/            # Data models
+│   └── utils/             # Utility functions
+├── tests/                 # Test files
+│   ├── test_data/         # Test data files
+│   ├── conftest.py        # Pytest fixtures
+│   └── test_*.py          # Test cases
+├── .env.example          # Example environment variables
+├── requirements.txt      # Project dependencies
+└── pytest.ini           # Pytest configuration
 ```
+
+## Getting Started
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd <project-directory>
+   ```
+
+2. **Create and activate a virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Set up environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
+
+## Running Tests
+
+Run all tests:
+```bash
+pytest -v
+```
+
+Run tests with coverage report:
+```bash
+pytest --cov=src --cov-report=term-missing
+```
+
+## Writing Tests
+
+Example test case:
+
+```python
+def test_get_all_objects(objects_api):
+    """Test getting all objects."""
+    response = objects_api.get_all_objects()
+    assert isinstance(response, list)
+```
+
+## Configuration
+
+Edit `.env` to configure the API endpoint and other settings:
+
+```
+API_BASE_URL=https://api.example.com/v1
+API_KEY=your_api_key_here
+API_TIMEOUT=10
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
