@@ -18,6 +18,14 @@ class Config:
     BASE_URL = os.getenv("API_BASE_URL", "https://api.example.com/v1")
     TIMEOUT = int(os.getenv("API_TIMEOUT", "10"))
     
+    # Database settings
+    DB_USER = os.getenv("DB_USER", "postgres")
+    DB_PASSWORD = os.getenv("DB_PASSWORD", "postgres")
+    DB_HOST = os.getenv("DB_HOST", "localhost")
+    DB_PORT = os.getenv("DB_PORT", "5432")
+    DB_NAME = os.getenv("DB_NAME", "fastapi_db")
+    SQLALCHEMY_DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+    
     # Auth settings
     API_KEY = os.getenv("API_KEY", "")
     
@@ -34,13 +42,17 @@ class Config:
         }
 
 # Load test data
-def load_test_data(filename: str) -> Any:
+def load_test_data(filename: str) -> Dict[str, Any]:
     """Load test data from JSON or YAML file."""
-    filepath = Config.TEST_DATA_DIR / filename
-    with open(filepath, 'r', encoding='utf-8') as f:
-        if filepath.suffix.lower() == '.json':
+    file_path = Config.TEST_DATA_DIR / filename
+    with open(file_path, 'r', encoding='utf-8') as f:
+        if file_path.suffix.lower() == '.json':
             import json
             return json.load(f)
-        elif filepath.suffix.lower() in ('.yaml', '.yml'):
+        elif file_path.suffix.lower() in ('.yaml', '.yml'):
             return yaml.safe_load(f)
-    raise ValueError(f"Unsupported file format: {filepath.suffix}")
+        else:
+            raise ValueError(f"Unsupported file format: {file_path.suffix}")
+
+# Create a settings instance to be imported by other modules
+settings = Config()

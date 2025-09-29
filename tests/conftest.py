@@ -3,6 +3,8 @@ Pytest configuration and fixtures for testing the FastAPI application.
 """
 import os
 import time
+from tests.utils import TestUser
+from tests.utils import user_authentication_headers
 from datetime import datetime, timedelta
 from typing import Dict, Generator, Any
 
@@ -12,16 +14,17 @@ from sqlalchemy import create_engine, event
 from sqlalchemy.orm import Session, sessionmaker
 from jose import jwt
 
-from restapi_automation.main import app
-from restapi_automation.core.config import settings
-from restapi_automation.models.base import Base, get_db
-from restapi_automation.models.user import User
-from restapi_automation.core.security import get_password_hash, create_access_token
+from src.api.main import app  # Updated import path to the correct module
+from src.utils.config import Config as settings  # Updated import path
+from src.models.base import Base  # Updated import path
+from src.api.core.database import get_db, SessionLocal  # Import get_db from database module
+from src.models.user import User  # Updated import path
+from src.api.core.security import get_password_hash, create_access_token  # Updated import path
 
 # Override database URL for testing
 TEST_SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 
-# Create test engine and session
+# Create test engine
 engine = create_engine(
     TEST_SQLALCHEMY_DATABASE_URL,
     connect_args={"check_same_thread": False},
@@ -98,7 +101,7 @@ def client(db_session: Session) -> Generator[TestClient, None, None]:
 async def async_client():
     """Create an async test client."""
     from httpx import AsyncClient
-    from src.pycharm_api.main import app
+    from src.api.main import app
     
     async with AsyncClient(app=app, base_url="http://test") as client:
         yield client
